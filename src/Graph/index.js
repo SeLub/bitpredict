@@ -21,7 +21,7 @@ function GraphDraw(dataArr,line1, line2){
         pointHoverBackgroundColor: "rgba(6, 167, 125, 1)",
         pointHoverBorderColor: "#fff"
      }, {
-        label: "Bank",
+        label: "Some Business Logic",
         data: line2,
         borderWidth: 2,
         backgroundColor: "rgba(246, 71, 64, 0.1)",
