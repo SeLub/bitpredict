@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'; 
 import {getAPIdata, dataObj} from './API';
+import Template from './Template'
 import Chart from 'chart.js';
 import './App.css';
 
@@ -42,24 +43,17 @@ function App() {
     });
     return (
       <div className="App">
-            <Headline value = {dataTime} />
-            <div className="row"><div className="col-sm-8">
-            <canvas id="myChart" width="400" height="400"></canvas>
-            </div><div className="col-sm-4">SideBar</div></div>
-            <Footerline value = {'Bitcoin Board'}/>
-      </div>
+      <header className="App-header">
+          <Template 
+          panelHeader={panelHeader}
+          panelFooter={panelFooter}
+          panelData={panelData}
+          panelSidebar={panelSidebar}
+          />
+      </header>
+    </div>
     );
   }
 
    
-function Headline(props) {
-    return <div className="row"><div className="col-sm-12"><h1>Bitcoin Board</h1><br /><h2>{props.value}</h2></div></div>;
-  }
-
-function Footerline(props){
-  return <div className="row"><div className="col-sm-12"><p>{props.value}</p></div></div>;
-}
-
-
-export default App;
-  
+export default App;  
