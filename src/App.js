@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'; 
 import {getAPIdata, dataObj} from './API';
 import Template from './Template'
-import Chart from 'chart.js';
+import {GraphDraw} from './Graph'
 import './App.css';
 
 
@@ -12,35 +12,15 @@ function App() {
   panelFooter += dataObj.dataTime;
 
 
-    useEffect(() => {
-      const ctx = document.getElementById("myChart");
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: titles,
-            datasets: [{
-                label: 'Bitcoin Price USD',
-                data: data,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-    });
+  useEffect(() => {
+    getAPIdata()
+        .then(data => {
+          let line1 = dataObj.dataArr ;
+          let line2 = dataObj.dataArr);
+          setDataObj(data.bpi);
+          GraphDraw(dataObj.titles,line1, line2);
+        });
+    }, []);
     return (
       <div className="App">
       <header className="App-header">
