@@ -1,28 +1,16 @@
 import React, { useEffect } from 'react'; 
-import axios from 'axios';
+import {getAPIdata, dataObj} from './API';
 import Chart from 'chart.js';
 import './App.css';
 
-let dataTime ='';
-let titles = [];
-let data =[];
-
-axios.get('https://api.coindesk.com/v1/bpi/historical/close.json')
-  .then((response) => {
-    dataTime = response.data.time.updated;
-
-    for (let [key, value] of Object.entries(response.data.bpi)) {
-        titles.push(key); 
-        data.push(value)
-}
-
-  });
-
-  console.log(titles);
-  console.log(data);
-
 
 function App() {
+
+  const [dataObject, setDataObj] = useState(null);
+  let [panelHeader, panelFooter, panelData, panelSidebar] = ['Bitcoin Price Analysis and Extrapolation predict', 'Data Updated ', 'Test Data', 'Test SideBar']
+  panelFooter += dataObj.dataTime;
+
+
     useEffect(() => {
       const ctx = document.getElementById("myChart");
       new Chart(ctx, {
