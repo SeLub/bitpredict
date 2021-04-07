@@ -1,18 +1,18 @@
-//import React from 'react'
-//import {Line} from 'react-chartjs-2'
+import React from 'react'
+import {Line} from 'react-chartjs-2'
 import Chart from 'chart.js';
 let LineChart ='';
 
-function GraphDraw(dataArr,line1, line2){
+function GraphDraw(dataObj){
+
+  console.log(dataObj.dataTime)
     const ctx = document.getElementById("myChart");
     
- //   const dataArr2 = titles.map(d=>d-20000)
-
     const  dataTwoLines = {
-      labels: dataArr,
+      labels: dataObj.dataDates ,
       datasets:  [{
         label: "Bitcoin Price Rate",
-        data: line1,
+        data:dataObj.dataPrice,
         borderWidth: 2,
         backgroundColor: "rgba(6, 167, 125, 0.1)",
         borderColor: "rgba(6, 167, 125, 1)",
@@ -22,7 +22,7 @@ function GraphDraw(dataArr,line1, line2){
         pointHoverBorderColor: "#fff"
      }, {
         label: "Some Business Logic",
-        data: line2,
+        data: dataObj.dataBusiness,
         borderWidth: 2,
         backgroundColor: "rgba(246, 71, 64, 0.1)",
         borderColor: "rgba(246, 71, 64, 1)",
@@ -43,17 +43,11 @@ function GraphDraw(dataArr,line1, line2){
       ],
     },
   }
-    new Chart(ctx, {
-        type: 'line',
-        data: dataTwoLines,
-        options: options
-    });
+   new Chart(ctx, {type: 'line', data: dataTwoLines, options: options});
 
- //   LineChart = () => (
- //       <>
- //         <Line data={data} options={options} />
- //       </>
- //     )
+    LineChart = () => (
+         <Line data={dataTwoLines} options={options} />
+      )
       
 }
 

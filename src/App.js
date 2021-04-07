@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react'; 
-import {getAPIdata, dataObj} from './API';
+import {getAPIdata} from './API';
 import Template from './Template'
-import {GraphDraw} from './Graph'
+import {GraphDraw, LineChart} from './Graph'
 import SomeBusinessLogic from './BusinessLogic'
 import './App.css';
+import Form from 'react-bootstrap/Form';
 
 
 function App() {
-
-  const [dataObject, setDataObj] = useState(null);
   let [panelHeader, panelFooter, panelData, panelSidebar] = ['Bitcoin Price Analysis and Extrapolation predict', 'Data Updated ', 'Test Data', 'Test SideBar']
-  panelFooter += dataObj.dataTime;
-console.log(dataObj)
+  let dataObj ={dataTime:'',dataDates:[], dataPrice:[], dataBusiness:[]}
+const [dataObject, setDataObj] = useState(null);
+const [select, setSelect] = useState(31);
 
-  useEffect(() => {
-    getAPIdata()
-        .then(data => {
-          let line1 = dataObj.dataArr ;
-          let line2 = SomeBusinessLogic(dataObj.dataArr)
-          setDataObj(data);
-          GraphDraw(dataObj.titles,line1, line2);
-        });
-    }, []);
+getAPIdata(dataObj)
+.then(data => {
+    setDataObj(dataObject);
+    dataObj.dataBusiness = SomeBusinessLogic(dataObj.dataPrice)
+    GraphDraw(dataObj);
+  });
+
+   
+
+//  useEffect(() => {    }, []);
     return (
       <div className="App">
       <header className="App-header">
@@ -31,6 +32,12 @@ console.log(dataObj)
           panelData={panelData}
           panelSidebar={panelSidebar}
           />
+            <Form.Control as="select" className="my-1 mr-sm-2" onChange={setSelect(select-16)} id="inlineFormCustomSelectPref" custom>
+            <option value="0">Select...</option>
+            <option value="31">Month</option>
+            <option value="15">Decade</option>
+            <option value="7">Week</option>
+            </Form.Control>
       </header>
     </div>
     );
