@@ -7,15 +7,15 @@ const useFetch = (url, options) => {
         fetch(url, options)
             .then(response => response.json())
             .then( (value) => {
-                    dataObj  = JSON.parse(JSON.stringify(value))
-                    apiData ={}
+                    let dataObj  = JSON.parse(JSON.stringify(value))
+                    let apiData ={}
                     apiData.updated = Intl.DateTimeFormat("fr-FR",
                                       {day:"2-digit", month:"2-digit", year:"2-digit", hour:"2-digit", minute:"2-digit"}
                                       ).format(new Date(dataObj.time.updatedISO)) 
                     apiData.currency = 'USD'
                     apiData.data = [];apiData.data[0] = [];apiData.data[1] = []
                     
-                        for (prop in dataObj.bpi){
+                        for (let prop in dataObj.bpi){
                             //  console.log(Intl.DateTimeFormat("fr-FR").format(new Date(prop)))
                             apiData.data[0].push(new Date(prop))
                             apiData.data[1].push(dataObj.bpi[prop])
@@ -26,7 +26,7 @@ const useFetch = (url, options) => {
              } )
             .catch(error => { setStatus({ loading:false, error:error}); console.error(error)});
     }
-    useEffect( () => { if (url) { fetchNow(url, options) }}
+    useEffect( (url, options) => { if (url) { fetchNow(url, options) }}
         ,[])
     return {...status, fetchNow}
 }
