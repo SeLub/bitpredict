@@ -23,10 +23,11 @@ const useFetch = (url, options) => {
                     apiData.maxDate = new Date(Math.max(...apiData.data[0]));
                     apiData.minDate = new Date(Math.min(...apiData.data[0]));
                     console.log(apiData)
+                    setStatus({loading:false, data:apiData})
              } )
-            .catch(error => { setStatus({ loading:false, error:error}); console.error(error)});
+            .catch(error => { setStatus({ loading:false, error:error})});
     }
-    useEffect( (url, options) => { if (url) { fetchNow(url, options) }}
+    useEffect( () => { if (url) { fetchNow(url, options) }}
         ,[])
     return {...status, fetchNow}
 }
