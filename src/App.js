@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import Template from './Template'
 import useFetch from './API';
-//import {GraphDraw} from './Graph'
+import showGraph from './Graph'
 //import SomeBusinessLogic from './BusinessLogic'
-import {Line} from 'react-chartjs-2'
+
 
 
 function App() {
@@ -14,14 +14,6 @@ function App() {
   if (loading) return 'LOADING...'
   if (error) {console.log(error); return null;}
   panelSidebar = JSON.stringify(data)
-
-
-
-
-
-
-
-
   
 
   const dataChart = {
@@ -37,30 +29,7 @@ function App() {
     ],
   }
   
-
-  
-  const LineChart = () => {
-    
-    const optionsChart = {
-      scales: {
-        yAxes: [
-          {
-            ticks: {
-              beginAtZero: true,
-            },
-          },
-        ],
-      },
-    }
-    return(
-      <>
-        <Line data={dataChart} options={optionsChart} />
-      </>
-    )
-  }
-
-
-  panelData = LineChart()
+  panelData = showGraph(dataChart)
 
 
 
