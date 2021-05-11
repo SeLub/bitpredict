@@ -20,7 +20,7 @@ function Template(props){
                 <Card border="success">
                  <Card.Header>{props.panelHeader}</Card.Header>
                      <Card.Body>
-                     <canvas id="myChart" width="400" height="400"></canvas>
+                           {props.panelData}
                       </Card.Body>
                     <Card.Footer className="text-muted">{props.panelFooter}</Card.Footer>
                 </Card>
