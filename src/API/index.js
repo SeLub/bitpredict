@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react' 
+import { sortAndDeduplicateDiagnostics } from 'typescript';
 
 const useFetch = (url, options) => {
     const [status, setStatus] = useState({ loading:false, data:undefined, error:undefined})
@@ -24,12 +25,13 @@ const useFetch = (url, options) => {
                     apiData.minDate = new Date(Math.min(...apiData.data[0]));
                     console.log(apiData)
                     setStatus({loading:false, data:apiData})
+                    return apiData
              } )
             .catch(error => { setStatus({ loading:false, error:error})});
     }
     useEffect( () => { if (url) { fetchNow(url, options) }}
         ,[])
-    return {...status, fetchNow}
+    return {...status, ...apiData, fetchNow}
 }
 
 export default useFetch

@@ -10,11 +10,9 @@ import showGraph from './Graph'
 function App() {
   let [panelHeader, panelFooter, panelData, panelSidebar] = ['Bitcoin Price Analysis and Extrapolation predict', 'Data Updated ', 'Test Data', 'Test SideBar']
   let {loading, data, error} = useFetch('https://api.coindesk.com/v1/bpi/historical/close.json')
-  console.log(data, loading, error)
   if (loading) return 'LOADING...'
   if (error) {console.log(error); return null;}
   panelSidebar = JSON.stringify(data)
-  
 
   const dataChart = {
     labels: ['1', '2', '3', '4', '5', '6'],
