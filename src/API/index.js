@@ -1,37 +1,28 @@
 import { useState, useEffect } from 'react' 
-import { sortAndDeduplicateDiagnostics } from 'typescript';
 
 const useFetch = (url, options) => {
-    const [status, setStatus] = useState({ loading:false, data:undefined, error:undefined})
-    function fetchNow(url, options){
-        setStatus({loading:true})
-        fetch(url, options)
-            .then(response => response.json())
-            .then( (value) => {
-                    let dataObj  = JSON.parse(JSON.stringify(value))
-                    let apiData ={}
-                    apiData.updated = Intl.DateTimeFormat("fr-FR",
-                                      {day:"2-digit", month:"2-digit", year:"2-digit", hour:"2-digit", minute:"2-digit"}
-                                      ).format(new Date(dataObj.time.updatedISO)) 
-                    apiData.currency = 'USD'
-                    apiData.data = [];apiData.data[0] = [];apiData.data[1] = []
-                    
-                        for (let prop in dataObj.bpi){
-                            //  console.log(Intl.DateTimeFormat("fr-FR").format(new Date(prop)))
-                            apiData.data[0].push(new Date(prop))
-                            apiData.data[1].push(dataObj.bpi[prop])
-                            }
-                    apiData.maxDate = new Date(Math.max(...apiData.data[0]));
-                    apiData.minDate = new Date(Math.min(...apiData.data[0]));
-                    console.log(apiData)
-                    setStatus({loading:false, data:apiData})
-                    return apiData
-             } )
-            .catch(error => { setStatus({ loading:false, error:error})});
+    const [status, setStatus] = useState({loading:false, data:undefined, error:undefined})
+    
+    async function fetchNow(url, options){
+        try  {
+            setStatus({loading:true})
+            let response = await fetch(url, options)
+            let dataApi = await response.json()
+            let parsetData = await JSON.parse(JSON.stringify(dataApi))
+            let labelsArr = await Object.keys(parsetData.bpi)
+            let priceArr = await Object.values(parsetData.bpi)
+            let dataApp = [labelsArr, priceArr]
+            setStatus({loading:false, data:dataApp})
+        }
+        catch (err) { console.log(err)
+            setStatus({loading:false, data:undefined, error:err})
+        }
+
     }
     useEffect( () => { if (url) { fetchNow(url, options) }}
         ,[])
-    return {...status, ...apiData, fetchNow}
+        
+    return{...status, fetchNow}
+    
 }
-
-export default useFetch
+    export default useFetch
