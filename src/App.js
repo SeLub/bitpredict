@@ -2,14 +2,33 @@ import { useState } from 'react'
 import './App.css';
 import LineDemo from './Graph'
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import DatePicker from 'react-modern-calendar-datepicker';
+import { Calendar } from "react-modern-calendar-datepicker";
 import * as SETTINGS from './SETTINGS'
 
 function App() {
 
 let [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
 const [chart, setChart] = useState({titleChart, lablesChart, dataChart})
-console.log(chart)
+
+   const defaultFrom = {
+    year: 2019,
+    month: 3,
+    day: 4,
+  };
+
+  const defaultTo = {
+    year: 2019,
+    month: 3,
+    day: 7,
+  };
+
+  const defaultRange = {
+    from: defaultFrom,
+    to: defaultTo,
+  };
+  const [selectedDayRange, setSelectedDayRange] = useState(
+    defaultRange
+  );
   return (
     <div className="App">
       <div className="Graph">
@@ -17,7 +36,11 @@ console.log(chart)
         <button onClick={()=>{}} >Step</button>
       </div>
       <div className="Panel">
-        <p>Text Panel</p>
+        <Calendar
+      value={selectedDayRange}
+      onChange={setSelectedDayRange}
+      shouldHighlightWeekends
+    />
       </div>        
     </div>
   );
