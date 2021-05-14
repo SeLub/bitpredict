@@ -17,4 +17,8 @@ const getMinMaxDates = (lablesChart) =>{
     return [MinDate, MaxDate]
 }
 
-export default getMinMaxDates
+const dateWithZero = (int) => {
+    return int > 9 ? String(int) : '0'+ String(int)
+}
+
+export {getMinMaxDates, dateWithZero}
