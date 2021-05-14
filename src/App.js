@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { useState } from 'react'
 import './App.css';
+import LineDemo from './Graph'
+import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import DatePicker from 'react-modern-calendar-datepicker';
+import * as SETTINGS from './SETTINGS'
 
 function App() {
+
+let [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
+const [chart, setChart] = useState({titleChart, lablesChart, dataChart})
+console.log(chart)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="Graph">
+        <LineDemo chart={chart} />
+        <button onClick={()=>{}} >Step</button>
+      </div>
+      <div className="Panel">
+        <p>Text Panel</p>
+      </div>        
     </div>
   );
 }

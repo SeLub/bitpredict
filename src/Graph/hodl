@@ -1,0 +1,7 @@
+const modify = () =>{
+    titleChart = 'JAST CLICKED!!!!'
+    lablesChart = ['2','3','4']
+    dataChart= [59, 80, 81]
+  setChart({titleChart, lablesChart, dataChart})
+    return console.log(chart)
+  }
