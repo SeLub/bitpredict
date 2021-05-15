@@ -26,6 +26,7 @@ const [selectedDayRange, setSelectedDayRange] = useState(defaultRange);
           ()=>{
             [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
             setChart({titleChart, lablesChart, dataChart})
+            setSelectedDayRange(defaultRange)
           }} >RESET</button>
       </div>
       <div className="Panel">
@@ -38,7 +39,7 @@ const [selectedDayRange, setSelectedDayRange] = useState(defaultRange);
     </div>
   );
 
-function selectRange(selectedDayRange, cahrt){
+function selectRange(selectedDayRange){
         setSelectedDayRange(selectedDayRange);
         if (newDateRange(selectedDayRange,chart) !== undefined ){
         [titleChart, lablesChart, dataChart] = newDateRange(selectedDayRange,chart)
