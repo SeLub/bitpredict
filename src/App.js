@@ -21,6 +21,7 @@ const [selectedDayRange, setSelectedDayRange] = useState(defaultRange);
   return (
     <div className="App">
       <div className="Graph">
+      <div className="chart">
         <LineDemo chart={chart} />
         <button onClick={
           ()=>{
@@ -29,12 +30,15 @@ const [selectedDayRange, setSelectedDayRange] = useState(defaultRange);
             setSelectedDayRange(defaultRange)
           }} >RESET</button>
       </div>
+      </div>
       <div className="Panel">
+      <div className="cal">
         <Calendar
       value={selectedDayRange}
       onChange={(selectedDayRange, chart) => selectRange(selectedDayRange, chart)}
       shouldHighlightWeekends
     />
+    </div>
       </div>        
     </div>
   );

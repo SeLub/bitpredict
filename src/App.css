@@ -8,12 +8,28 @@
 }
 
 .Graph{
-  flex: 50%;
+  flex: 60% 1;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; 
+}
+.chart{
+  background-color: wheat;
+  width: 60%;
+}
+.Panel{
+  flex: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.Panel {
-  flex: 50%;
+.cal{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
 }
 
 @media (max-width: 400px) {

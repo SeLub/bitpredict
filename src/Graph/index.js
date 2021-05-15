@@ -8,7 +8,8 @@ import {Line} from 'react-chartjs-2'
             label: chart.titleChart,
             data: chart.dataChart,
             fill: false,
-            borderColor: 'rgb(75, 192, 192)',
+            borderColor: 'darkred',
+            backgroundColor: 'white',
             tension: 0.1
             }]
       };
