@@ -16,23 +16,36 @@ const defaultRange = {from: defaultFrom,to: defaultTo};
 const [selectedDayRange, setSelectedDayRange] = useState(defaultRange);
 
 
+
   
   return (
     <div className="App">
       <div className="Graph">
         <LineDemo chart={chart} />
         <button onClick={
-          ()=>{}} >Step</button>
+          ()=>{
+            [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
+            setChart({titleChart, lablesChart, dataChart})
+          }} >RESET</button>
       </div>
       <div className="Panel">
         <Calendar
       value={selectedDayRange}
-      onChange={(selectedDayRange, cahrt) => {setSelectedDayRange(selectedDayRange);newDateRange(selectedDayRange,chart)}}
+      onChange={(selectedDayRange, chart) => selectRange(selectedDayRange, chart)}
       shouldHighlightWeekends
     />
       </div>        
     </div>
   );
+
+function selectRange(selectedDayRange, cahrt){
+        setSelectedDayRange(selectedDayRange);
+        if (newDateRange(selectedDayRange,chart) !== undefined ){
+        [titleChart, lablesChart, dataChart] = newDateRange(selectedDayRange,chart)
+        setChart({titleChart, lablesChart, dataChart})
+        console.log(newDateRange(selectedDayRange,chart))}
+      }
+
 }
 
 export default App;

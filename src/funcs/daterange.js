@@ -20,16 +20,17 @@ function newDateRange(selectedDayRange, chart){
         indexTo = lablesChart.findIndex( el => { return el === dateTo })
         if (indexTo === -1) { indexTo = lablesChart.length-1}
         if (indexFrom === -1) { indexFrom = 0}
-console.log(lablesChart.slice(indexFrom,indexTo+1))
-console.log(dataChart.slice(indexFrom,indexTo+1))
+//console.log(lablesChart.slice(indexFrom,indexTo+1))
+//console.log(dataChart.slice(indexFrom,indexTo+1))
 let newTitleChart =`${titleChart} From: ${dateFrom} To: ${dateTo}`
 let newLabelsChart = lablesChart.slice(indexFrom,indexTo+1)
 let newDataChart = dataChart.slice(indexFrom,indexTo+1)
-let newChart = {
+let newChart = [
     newTitleChart, 
     newLabelsChart, 
     newDataChart
-    }
+]
+console.log(newChart)
 return newChart
       } 
       else {
