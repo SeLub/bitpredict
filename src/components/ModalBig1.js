@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Modal } from 'bootstrap'
 
 const ModalBig = () => {
 	return (
