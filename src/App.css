@@ -5,8 +5,20 @@
   text-align: center;
 }
 
-#jumba{
+#welcome{
   background-image: url('scale_1200.webp')
+}
+
+#graph{
+  background-color: blue;
+  min-height: 400px;
+  border: 1px solid #dee2e6;
+}
+
+#settings{
+    background-color: red;
+    min-height: 400px;
+    border: 1px solid #dee2e6;
 }
 
 .App-logo {
