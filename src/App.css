@@ -6,18 +6,20 @@
 }
 
 #welcome{
-  background-image: url('scale_1200.webp')
+  background-image: url('scale_1200.webp');
+  min-height: 600px;
+  border: 1px solid #dee2e6;
 }
 
 #graph{
   background-color: blue;
-  min-height: 400px;
+  min-height: 600px;
   border: 1px solid #dee2e6;
 }
 
 #settings{
     background-color: red;
-    min-height: 400px;
+    min-height: 600px;
     border: 1px solid #dee2e6;
 }
 

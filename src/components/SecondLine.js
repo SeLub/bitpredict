@@ -1,23 +1,23 @@
 import React from 'react'
-import SecondLine1 from './SecondLine1'
-import SecondLine2 from './SecondLine2'
-import SecondLine3 from './SecondLine3'
+import SecondLineBox from './SecondLineBox'
 
 export default function SeconLine({dash}){
+
 	let cols = 6 
-//	if (dash === 'graph') { cols = 4}
-		// else {cols = 6}
 	function createSecondLine({dash}){
 		if (dash === 'graph') { 
 			cols = 4
-			return (<><SecondLine1 cols={cols}/>
-					<SecondLine2 cols={cols}/>
-					<SecondLine3 cols={cols}/></>
+			return (
+				<>
+				<SecondLineBox cols={cols} header="h1" text="Text1" button="" style = "dark"/>
+				<SecondLineBox cols={cols} header="h2" text="Text2" button=""  style = "light"/>
+				<SecondLineBox cols={cols} header="h3" text="Text3" button="" style = "dark"/>
+				</>
 					)
 		} else {
 			cols = 6
-			return	(<><SecondLine1 cols={cols}/>
-					<SecondLine3 cols={cols}/></>)
+			return	(<><SecondLineBox cols={cols} header="h4" text="Text4" button="Button 4" style = "dark"/>
+					<SecondLineBox cols={cols} header="h5" text="Text5" button="Button 5" style = "light" /></>)
 		}
 
 	}
