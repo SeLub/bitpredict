@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState, useEffect, useRef} from 'react'
+import {useState} from 'react'
 import './App.css';
 import SecondLine from './components/SecondLine'
 import Header from './components/Header'
@@ -78,13 +78,13 @@ const Panels = ({dash}) => {
 
   return (
 
-<div class="container px-4">
-<Header setSettings={setSettings}/>
-<Dashboard dash={dash} />
-<Panels dash={dash} />
-<Footer />
+  <div class="container px-4">
+    <Header setSettings={setSettings}/>
+    <Dashboard dash={dash} />
+    <Panels dash={dash} />
+    <Footer />
   
-</div>
+  </div>
 
   );
 }
