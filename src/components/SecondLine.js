@@ -9,21 +9,21 @@ export default function SeconLine({dash}){
 			cols = 4
 			return (
 				<>
-				<SecondLineBox cols={cols} header="h1" text="Text1" button="" style = "dark"/>
-				<SecondLineBox cols={cols} header="h2" text="Text2" button=""  style = "light"/>
-				<SecondLineBox cols={cols} header="h3" text="Text3" button="" style = "dark"/>
+				<SecondLineBox cols={cols} header="Text header 1" text="Text1" button="" theme = {'dark'}/>
+				<SecondLineBox cols={cols} header="Text header 2" text="Text2" button=""  theme = {'light'}/>
+				<SecondLineBox cols={cols} header="Text header 3" text="Text3" button="" theme = {'dark'}/>
 				</>
 					)
 		} else {
 			cols = 6
-			return	(<><SecondLineBox cols={cols} header="h4" text="Text4" button="Button 4" style = "dark"/>
-					<SecondLineBox cols={cols} header="h5" text="Text5" button="Button 5" style = "light" /></>)
+			return	(<><SecondLineBox cols={cols} header={'Text header 4'} text='Jast text' button="Button 4" theme = 'dark' mod="#exampleModal"/>
+					<SecondLineBox cols={cols} header={"Text header 5"} text="Text 5" button="Button 5" theme = 'light' mod="#exModalTwo"/></>)
 		}
 
 	}
     
     return(
-    <div class="row align-items-md-stretch">
+    <div className="row align-items-md-stretch">
     {createSecondLine({dash})}
     </div>
     )

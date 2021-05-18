@@ -11,18 +11,16 @@ function App() {
 
   const showSettingsPanel =() =>{ dash === 'graph' ? setDash('settings') : setDash('graph') }
 
-  const setGraph =() =>{return(setDash('graph'))}
+  //const setGraph =() =>{return(setDash('graph'))}
 
   const MainPanel = ({dash}) => {
-    return (<><div class="p-2 mb-4 rounded-3" id={dash}></div></>)}
+    return (<><div className="p-2 mb-4 rounded-3" id={dash}></div></>)}
 
   const Panels = ({dash}) => {return SecondLine({dash})} 
 
-
-
   return (
 
-  <div class="container px-4">
+  <div className="container px-4">
     <Header showSettingsPanel={showSettingsPanel}/>
     <MainPanel dash={dash} />
     <Panels dash={dash} />
