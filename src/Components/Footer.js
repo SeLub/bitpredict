@@ -1,12 +1,13 @@
 import React,{useContext} from 'react'
-import { Context } from '../context'
+import { LanguageContext } from '../context'
+import {DICT} from '../lang'
 
 const Footer = (props) => {
-	const [context, setContext] = useContext(Context);
+	const [langContext] = useContext(LanguageContext);
   return(
   	
-      <footer className="pt-3 mt-4 text-muted border-top"><div>ComponentB: {context}</div>
-      &copy; 2021
+      <footer className="pt-3 mt-4 text-muted border-top">
+      {DICT[`FooterCopyright.${langContext}`]}&nbsp;&copy; 2021
     </footer>
   )
 }

@@ -1,21 +1,18 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import { Context } from '../context'
 
 const SecondLineBox = (props) => {
-		const [context, setContext] = useContext(Context);
 	return (
 <Card border={props.border} bg={props.bg} text={props.text}>
-  <Card.Header>Featured</Card.Header>
+  <Card.Header>{props.title}</Card.Header>
   <Card.Body>
-    <Card.Title>Special title treatment</Card.Title>
+    <Card.Title>{props.slogan}</Card.Title>
     <Card.Text>
-    {context}
-      With supporting text below as a natural lead-in to additional content.
-    }
+    {props.fullText}
     </Card.Text>
-    <Button onClick={() => setContext('RU')} variant="primary">Go somewhere</Button>
+    {props.textButton ? <Button onClick={()=>{}} variant="primary">{props.textButton}</Button> : ''}
+    
   </Card.Body>
 </Card>
 )

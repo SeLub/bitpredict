@@ -9,6 +9,16 @@
   background-image: url('scale_1200.webp');
   min-height: 600px;
   border: 1px solid #dee2e6;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#welcome div{
+  min-width: 80%;
+  background-color: rgba(132, 1, 1, 0.7);
+  color: wheat;
+  border-radius: 10px;
 }
 
 #graph{

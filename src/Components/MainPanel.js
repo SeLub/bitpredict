@@ -1,8 +1,9 @@
 import React from 'react'
 import Settings from './Settings'
+import Joombatron from './Joombatron'
 
-const MainPanel = ({dash, toggleTheme, toggleLanguage}) => {
-		const wr = (dash === 'graph') ? "<LineDemo chart={chart}  />" : (dash === 'settings') ? <Settings toggleTheme={toggleTheme} toggleLanguage={toggleLanguage}/> : ''
+const MainPanel = ({dash, toggleTheme}) => {
+		const wr = (dash === 'graph') ? "<LineDemo chart={chart}  />" : (dash === 'settings') ? <Settings toggleTheme={toggleTheme}/> : <Joombatron />
     
         return (
           
