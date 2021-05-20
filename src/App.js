@@ -1,47 +1,50 @@
 import React from 'react'
 import {useState} from 'react'
-import * as SETTINGS from './SETTINGS'
 import './App.css';
-import SecondLine from './components/SecondLine'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import LineDemo from './components/Graph'
+import Template from './Template'
+import Footer from './Components/Footer'
+import Header from './Components/Header'
+import MainPanel from './Components/MainPanel'
+import SecondLine from './Components/SecondLine'
+import useTheme from './hooks/useTheme'
+import useLanguage from './hooks/useLanguage'
+import { Context } from './context'
 
 function App() {
-  let [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
-  const [chart, setChart] = useState({titleChart, lablesChart, dataChart})
 
-  console.log(chart)
+  //* Define props for Template with inintial settings
+  let [panelHeader, panelFooter, panelMain, panelSecondLine] = ['Bitcoin Price Analysis and Extrapolation predict', 'Data Updated ', 'Main Panel', 'panelSecondLine']
   
+  //* Fix Main Panel State: Initial = 'welcome', for Graph = 'graph', for Setting = 'settings'
   let [dash, setDash] = useState('welcome')
-
   const showSettingsPanel =() =>{ dash === 'graph' ? setDash('settings') : setDash('graph') }
 
-  //const setGraph =() =>{return(setDash('graph'))}
+  //Get 'theme' from local storage or set default
+  const [theme, toggleTheme] = useTheme()
 
-  const MainPanel = ({dash}) => {
+  //Get 'language' from local storage or set default
+  const [language, toggleLanguage] = useLanguage()
 
-    const wr = (dash === 'graph') ? <LineDemo chart={chart}  /> : (dash === 'settings') ? '...Settings' : ''
-    
-        return (
-          
-          <div className="p-2 mb-4 rounded-3" id={dash}>
-                {wr}
-          </div>
-          )}
+const [context, setContext] = useState('ENG');
 
-  const Panels = ({dash}) => {return SecondLine({dash})} 
+
+   
+  //* Set props for Template. Props are our Components
+  panelHeader = <Header showSettingsPanel={showSettingsPanel}/>
+  panelMain = <MainPanel dash={dash} toggleTheme={toggleTheme} toggleLanguage={toggleLanguage}/>
+  panelSecondLine = <SecondLine dash={dash} />
+  panelFooter = <Footer />
 
   return (
+<Context.Provider value={[context, setContext]}>
+  <Template 
+          panelHeader={panelHeader}
+          panelMain={panelMain}
+          panelSecondLine={panelSecondLine}
+          panelFooter={panelFooter}
+    />
+  </Context.Provider>
 
-  <div className="container px-4">
-    <Header showSettingsPanel={showSettingsPanel}/>
-    <MainPanel dash={dash} />
-    
-    <Panels dash={dash} />
-    <Footer />
-  
-  </div>
 
   );
 }

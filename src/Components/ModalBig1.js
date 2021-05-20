@@ -1,8 +1,9 @@
 import React from 'react'
-import { Modal } from 'bootstrap'
+//import { Modal } from 'bootstrap'
 
 const ModalBig = () => {
 	return (
+
 <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog modal-dialog-scrollable modal-xl">
     <div className="modal-content">
@@ -19,6 +20,7 @@ const ModalBig = () => {
     </div>
   </div>
 </div>
+
 		)
 }
 
