@@ -1,30 +1,52 @@
-import React from 'react';
+import React from 'react'
+import {useState} from 'react'
 import './App.css';
 import Template from './Template'
-import useFetch from './API';
-//import {GraphDraw} from './Graph'
-//import SomeBusinessLogic from './BusinessLogic'
-
+import Footer from './Components/Footer'
+import Header from './Components/Header'
+import MainPanel from './Components/MainPanel'
+import SecondLine from './Components/SecondLine'
+import useTheme from './hooks/useTheme'
+import { LanguageContext } from './context'
+import * as SETTINGS from './SETTINGS'
 
 function App() {
-  let [panelHeader, panelFooter, panelData, panelSidebar] = ['Bitcoin Price Analysis and Extrapolation predict', 'Data Updated ', 'Test Data', 'Test SideBar']
-  let {loading, data, error} = useFetch('https://api.coindesk.com/v1/bpi/historical/close.json')
-  console.log(data, loading, error)
-  if (loading) return 'LOADING...'
-  if (error) {console.log(error); return null;}
-  panelSidebar = JSON.stringify(data)
-return (
-    <div className="App">
-      <header className="App-header">
-          <Template 
+  //* Load data for Graph from './SETTINGS' anf fix the state
+  let [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
+  //const [chart, setChart] = useState({titleChart, lablesChart, dataChart})
+const [chart] = useState({titleChart, lablesChart, dataChart})
+  //* Define props for Template with inintial settings
+  let [panelHeader, panelFooter, panelMain, panelSecondLine] = ['Bitcoin Price Analysis and Extrapolation predict', 'Data Updated ', 'Main Panel', 'panelSecondLine']
+  
+  //* Fix Main Panel State: Initial = 'welcome', for Graph = 'graph', for Settings = 'settings'
+  let [dash, setDash] = useState('welcome')
+  const showSettingsPanel =() =>{ dash === 'graph' ? setDash('settings') : setDash('graph') }
+
+  //Get 'theme' from local storage or set default
+  const [theme, toggleTheme] = useTheme()
+
+  //Set initial state for 'language'
+  const [langContext, setLangContext] = useState(localStorage.getItem('language') || 'ENG')
+
+
+   
+  //* Set props for Template. Props are our Components
+  panelHeader = <Header showSettingsPanel={showSettingsPanel}/>
+  panelMain = <MainPanel dash={dash} toggleTheme={toggleTheme} chart={chart} setDash={setDash}/>
+  panelSecondLine = <SecondLine dash={dash} theme={theme}/>
+  panelFooter = <Footer />
+
+  return (
+<LanguageContext.Provider value={[langContext, setLangContext]}>
+  <Template 
           panelHeader={panelHeader}
+          panelMain={panelMain}
+          panelSecondLine={panelSecondLine}
           panelFooter={panelFooter}
-          panelData={panelData}
-          panelSidebar={panelSidebar}
-          />
-              
-      </header>
-    </div>
+    />
+  </LanguageContext.Provider>
+
+
   );
 }
 
