@@ -16,9 +16,8 @@ function App() {
   const defaultFrom = {year: currentDate.getFullYear(), month: currentDate.getMonth(), day:currentDate.getDate()}
   const defaultTo = {year:fromDefaultDate.getFullYear(),month:fromDefaultDate.getMonth()+1, day:fromDefaultDate.getDate()}
   const defaultRange = {from: defaultFrom, to:defaultTo}
-  console.log(defaultRange )
 
-  const [currentRange, setCurrentRange] = useState({from:null, to:null})
+  const [currentRange, setCurrentRange] = useState(defaultRange)
   //озможно оставть данные по умолчанию, чтобы их использовать для работы без интернета оф-лайн
   //* Load data for Graph from './SETTINGS' anf fix the state
   // let [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
@@ -36,13 +35,20 @@ function App() {
 
   //Set initial state for 'language'
   const [langContext, setLangContext] = useState(localStorage.getItem('language') || 'ENG')
+  
+  //useEffect(()=>{} ,[defaultRange])
+  
 
   useEffect(()=>{
 
-  if (localStorage.getItem('currentRange')) { setCurrentRange( JSON.parse(localStorage.getItem('currentRange')) )
+//console.log(defaultRange, currentRange)
+localStorage.getItem('currentRange') ? setCurrentRange(JSON.parse(localStorage.getItem('currentRange'))) : setCurrentRange(defaultRange)
 
-  } else { setCurrentRange(defaultRange)}
-  
+    fetchAPIdata(currentRange)
+  }
+    ,[])
+
+
   const getActualData = (obj) =>{   
     let dataObj = {
         titleChart:`Bicoin Prices, USD\n`,
@@ -57,15 +63,21 @@ function App() {
     return dataObj
   }
 
-    const fetchAPIdata = async() => {
-      const response = await fetch('https://api.coindesk.com/v1/bpi/historical/close.json')
+    const fetchAPIdata = async(currentRange) => {
+      let start = currentRange.from.year + '-' + fillZerro(currentRange.from.month) + '-' + fillZerro(currentRange.from.day),
+          end = currentRange.to.year + '-' +fillZerro(currentRange.to.month) + '-' + fillZerro(currentRange.to.day)
+
+      let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${start}&end=${end}`
+      //console.log(url)
+      const response = await fetch(url)
       const APIdata = await response.json()
       const API = await getActualData(APIdata) 
       setChart(API)
     }
-    fetchAPIdata()
-  }
-    ,[])
+
+    const fillZerro = (num) => { return num<9 ? '0'+ num : num} 
+
+
 
   //* Set props for Template. Props are our Components
   panelHeader = <Header showSettingsPanel={showSettingsPanel}/>

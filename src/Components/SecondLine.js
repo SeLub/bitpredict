@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react'
+import React, { useContext} from 'react'
 import Col from 'react-bootstrap/Col'
 import SecondLineBox from './SecondLineBox'
 import { LanguageContext } from '../context'
