@@ -8,9 +8,17 @@ import MainPanel from './Components/MainPanel'
 import SecondLine from './Components/SecondLine'
 import useTheme from './hooks/useTheme'
 import { LanguageContext } from './context'
-import * as SETTINGS from './SETTINGS'
+//import * as SETTINGS from './SETTINGS'
 
 function App() {
+  let currentDate = new Date()
+  let fromDefaultDate = new Date(); fromDefaultDate.setMonth(fromDefaultDate.getMonth());
+  const defaultFrom = {year: currentDate.getFullYear(), month: currentDate.getMonth(), day:currentDate.getDate()}
+  const defaultTo = {year:fromDefaultDate.getFullYear(),month:fromDefaultDate.getMonth()+1, day:fromDefaultDate.getDate()}
+  const defaultRange = {from: defaultFrom, to:defaultTo}
+  console.log(defaultRange )
+
+  const [currentRange, setCurrentRange] = useState({from:null, to:null})
   //озможно оставть данные по умолчанию, чтобы их использовать для работы без интернета оф-лайн
   //* Load data for Graph from './SETTINGS' anf fix the state
   // let [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
@@ -30,6 +38,10 @@ function App() {
   const [langContext, setLangContext] = useState(localStorage.getItem('language') || 'ENG')
 
   useEffect(()=>{
+
+  if (localStorage.getItem('currentRange')) { setCurrentRange( JSON.parse(localStorage.getItem('currentRange')) )
+
+  } else { setCurrentRange(defaultRange)}
   
   const getActualData = (obj) =>{   
     let dataObj = {
@@ -58,7 +70,7 @@ function App() {
   //* Set props for Template. Props are our Components
   panelHeader = <Header showSettingsPanel={showSettingsPanel}/>
   panelMain = <MainPanel dash={dash} toggleTheme={toggleTheme} chart={chart} setDash={setDash}/>
-  panelSecondLine = <SecondLine dash={dash} theme={theme}/>
+  panelSecondLine = <SecondLine dash={dash} theme={theme} currentRange={currentRange} setCurrentRange={setCurrentRange}/>
   panelFooter = <Footer />
 
   return (

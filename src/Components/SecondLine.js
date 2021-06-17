@@ -6,40 +6,17 @@ import {DICT} from '../lang'
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import { Calendar } from 'react-modern-calendar-datepicker';
 
-const SecondLine = ({dash}) =>{
+const SecondLine = ({dash, currentRange, setCurrentRange}) =>{
 
-	const [langContext] = useContext(LanguageContext);
-
-
-   const defaultFrom = {
-    year: 2019,
-    month: 3,
-    day: 4,
-  };
-
-  const defaultTo = {
-    year: 2019,
-    month: 3,
-    day: 7,
-  };
-
-  const defaultRange = {
-    from: defaultFrom,
-    to: defaultTo,
-  };
-  const [selectedDayRange, setSelectedDayRange] = useState(
-    defaultRange
-  );
-
-
+   const [langContext] = useContext(LanguageContext);
 
 	let res = dash === 'graph' ? (
 		<>
 		<Col xs={12} md={4}>
 
 	<Calendar
-      value={selectedDayRange}
-      onChange={setSelectedDayRange}
+      value={currentRange}
+      onChange={setCurrentRange}
       shouldHighlightWeekends
     />
 		
