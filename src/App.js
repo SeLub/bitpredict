@@ -18,8 +18,8 @@ function App() {
   const defaultRange = {from: defaultFrom, to:defaultTo}
 
   const [currentRange, setCurrentRange] = useState(defaultRange)
-  //озможно оставть данные по умолчанию, чтобы их использовать для работы без интернета оф-лайн
-  //* Load data for Graph from './SETTINGS' anf fix the state
+  //Возможно оставть данные по умолчанию, чтобы их использовать для работы без интернета оф-лайн
+  // Load data for Graph from './SETTINGS' anf fix the state
   // let [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
   //const [chart, setChart] = useState({titleChart, lablesChart, dataChart})
   const [chart, setChart] = useState({})
@@ -36,8 +36,18 @@ function App() {
   //Set initial state for 'language'
   const [langContext, setLangContext] = useState(localStorage.getItem('language') || 'ENG')
   
-  //useEffect(()=>{} ,[defaultRange])
-  
+  useEffect(()=>{
+    console.log(currentRange)
+    if (currentRange.to !== null){
+      setCurrentRange(currentRange)
+      localStorage.setItem('currentRange', JSON.stringify(currentRange))
+      fetchAPIdata(currentRange)
+
+    }
+  }
+   ,[currentRange])
+
+  console.log(localStorage.getItem('currentRange'))
 
   useEffect(()=>{
 
