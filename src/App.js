@@ -11,13 +11,12 @@ import { LanguageContext } from './context'
 //import * as SETTINGS from './SETTINGS'
 
 function App() {
-  let currentDate = new Date()
-  let fromDefaultDate = new Date(); fromDefaultDate.setMonth(fromDefaultDate.getMonth());
-  const defaultFrom = {year: currentDate.getFullYear(), month: currentDate.getMonth(), day:currentDate.getDate()}
-  const defaultTo = {year:fromDefaultDate.getFullYear(),month:fromDefaultDate.getMonth()+1, day:fromDefaultDate.getDate()}
-  const defaultRange = {from: defaultFrom, to:defaultTo}
+   let dateTo = new Date(), d = new Date(), dateFrom = new Date(d.setMonth(d.getMonth() - 1))
+   const defaultFrom = { year: dateFrom.getUTCFullYear(), month: dateFrom.getUTCMonth() + 1, day: dateFrom.getUTCDate(), };
+   const defaultTo = { year: dateTo.getUTCFullYear(), month: dateTo.getUTCMonth() + 1, day: dateTo.getUTCDate(), };
+   const defaultRange = { from: defaultFrom, to: defaultTo, };
 
-  const [currentRange, setCurrentRange] = useState(defaultRange)
+const [selectedDayRange, setSelectedDayRange] = useState({from:null, to:null});
   //Возможно оставть данные по умолчанию, чтобы их использовать для работы без интернета оф-лайн
   // Load data for Graph from './SETTINGS' anf fix the state
   // let [titleChart, lablesChart, dataChart] = [SETTINGS.TITLE,SETTINGS.LABELS,SETTINGS.DATA]
@@ -36,28 +35,19 @@ function App() {
   //Set initial state for 'language'
   const [langContext, setLangContext] = useState(localStorage.getItem('language') || 'ENG')
   
-  useEffect(()=>{
-    console.log(currentRange)
-    if (currentRange.to !== null){
-      setCurrentRange(currentRange)
-      localStorage.setItem('currentRange', JSON.stringify(currentRange))
-      fetchAPIdata(currentRange)
-
-    }
+  useEffect(() => {
+    if (window.localStorage.getItem('currentRange')) {
+    setSelectedDayRange(JSON.parse(window.localStorage.getItem('currentRange')));
+  } else {
+    setSelectedDayRange(defaultRange)
   }
-   ,[currentRange])
+  }, []);
 
-  console.log(localStorage.getItem('currentRange'))
-
-  useEffect(()=>{
-
-//console.log(defaultRange, currentRange)
-localStorage.getItem('currentRange') ? setCurrentRange(JSON.parse(localStorage.getItem('currentRange'))) : setCurrentRange(defaultRange)
-
-    fetchAPIdata(currentRange)
-  }
-    ,[])
-
+    useEffect(() => {
+    if (selectedDayRange.to !== null) {
+    window.localStorage.setItem('currentRange', JSON.stringify(selectedDayRange));
+    fetchAPIdata(selectedDayRange)
+    }}, [selectedDayRange]);
 
   const getActualData = (obj) =>{   
     let dataObj = {
@@ -73,9 +63,9 @@ localStorage.getItem('currentRange') ? setCurrentRange(JSON.parse(localStorage.g
     return dataObj
   }
 
-    const fetchAPIdata = async(currentRange) => {
-      let start = currentRange.from.year + '-' + fillZerro(currentRange.from.month) + '-' + fillZerro(currentRange.from.day),
-          end = currentRange.to.year + '-' +fillZerro(currentRange.to.month) + '-' + fillZerro(currentRange.to.day)
+    const fetchAPIdata = async(selectedDayRange) => {
+      let start = selectedDayRange.from.year + '-' + fillZerro(selectedDayRange.from.month) + '-' + fillZerro(selectedDayRange.from.day),
+          end = selectedDayRange.to.year + '-' +fillZerro(selectedDayRange.to.month) + '-' + fillZerro(selectedDayRange.to.day)
 
       let url = `https://api.coindesk.com/v1/bpi/historical/close.json?start=${start}&end=${end}`
       //console.log(url)
@@ -92,7 +82,7 @@ localStorage.getItem('currentRange') ? setCurrentRange(JSON.parse(localStorage.g
   //* Set props for Template. Props are our Components
   panelHeader = <Header showSettingsPanel={showSettingsPanel}/>
   panelMain = <MainPanel dash={dash} toggleTheme={toggleTheme} chart={chart} setDash={setDash}/>
-  panelSecondLine = <SecondLine dash={dash} theme={theme} currentRange={currentRange} setCurrentRange={setCurrentRange}/>
+  panelSecondLine = <SecondLine dash={dash} theme={theme} selectedDayRange={selectedDayRange} setSelectedDayRange={setSelectedDayRange}/>
   panelFooter = <Footer />
 
   return (

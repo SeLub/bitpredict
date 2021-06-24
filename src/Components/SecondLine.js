@@ -6,7 +6,7 @@ import {DICT} from '../lang'
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import { Calendar } from 'react-modern-calendar-datepicker';
 
-const SecondLine = ({dash, currentRange, setCurrentRange}) =>{
+const SecondLine = ({dash, selectedDayRange, setSelectedDayRange}) =>{
 
    const [langContext] = useContext(LanguageContext);
 
@@ -15,8 +15,8 @@ const SecondLine = ({dash, currentRange, setCurrentRange}) =>{
 		<Col xs={12} md={4}>
 
 	<Calendar
-      value={currentRange}
-      onChange={setCurrentRange}
+      value={selectedDayRange}
+      onChange={setSelectedDayRange}
       shouldHighlightWeekends
     />
 		
